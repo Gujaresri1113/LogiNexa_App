@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Avatar from '../assets/avatar.png';
 import styles from '../styles/Username.module.css';
 import extend from '../styles/Profile.module.css';
@@ -13,7 +13,8 @@ import { updateUser } from '../helper/helper';
 export default function Profile() {
 
   const [file, setFile] = useState();
-  const [{ isLoading, apiData, serverError }] = useFetch()
+  const [{ isLoading, apiData, serverError }] = useFetch();
+  const navigate = useNavigate()
   
 
   const formik = useFormik({
@@ -47,6 +48,10 @@ export default function Profile() {
     setFile(base64);
   }
 
+  function userLogout(){
+    localStorage.removeItem('token');
+    navigate('/')
+  }
   
 
   if (isLoading) return <h1 className='text-2xl font-bold'>isLoading</h1>;
@@ -71,8 +76,8 @@ export default function Profile() {
             </div>
             <div className="textbox flex flex-col items-center gap-2">
               <div className="name flex w-3/4 gap-10">
-                <input {...formik.getFieldProps('firstname')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='First Name' />
-                <input {...formik.getFieldProps('lastname')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Last Name' />
+                <input {...formik.getFieldProps('firstName')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='First Name' />
+                <input {...formik.getFieldProps('lastName')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Last Name' />
               </div>
 
               <div className="name flex w-3/4 gap-10">
@@ -83,7 +88,7 @@ export default function Profile() {
               <button type="submit" className={styles.btn}>Update</button>
             </div>
             <div className="text-center py-2">
-              <span className='text-gray-500'>Come Back Later ? <Link to="/" className="text-red-500">Logout</Link></span>
+              <span className='text-gray-500'>Come Back Later ? <button onClick={userLogout} className="text-red-500">Logout</button></span>
             </div>
           </form>
         </div>
