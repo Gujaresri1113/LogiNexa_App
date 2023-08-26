@@ -22,13 +22,13 @@ export default function Recovery() {
   async function onSubmit(e) {
     e.preventDefault();
     try {
-      let { status } = await verifyOTP({ username, code : OTP })
+      let { status } = await verifyOTP({ username, code: OTP })
       if (status === 201) {
-        toast.success('Verify Successfully !')
+        toast.success('Successfully submitted..!')
         return navigate('/reset')
       }
     } catch (error) {
-      return toast.error('Check email, OTP is wrong.. !')
+      return toast.error('Check OTP...! Something Went Wrong ')
     }
 
   }
