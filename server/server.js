@@ -12,7 +12,7 @@ const app = express();
 /** middlewares */
 app.use(express.json());
 app.use(cors({
-    origin:["https://logi-nexa-app-pvk4-p6j7sftil-gujaresri1113.vercel.app/"],
+    origin:["https://logi-nexa-app-pvk4.vercel.app/"],
     methods:["POST","GET"],
     credentials:true
 }));
